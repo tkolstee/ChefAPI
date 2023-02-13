@@ -1,0 +1,52 @@
+{
+    "url":      "http://chef-server.example.org:4000",
+    "username": "myuser",
+    "expected_get_headers": {
+        "Accept": "application/json",
+        "Host": "chef-server.example.org:4000",
+        "Method": "GET",
+        "Path": "/license",
+        "X-Chef-Version": "16.0.0",
+        "X-Ops-Server-API-Version": "1",
+        "X-Ops-Sign": "version=1.3",
+        "X-Ops-UserId": "myuser",
+        "X-Ops-Content-Hash": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+    },
+    "post_data": {
+        "username": "myuser",
+        "password": "secret"
+    },
+    "expected_post_headers": {
+        "Accept": "application/json",
+        "Host": "chef-server.example.org:4000",
+        "Method": "POST",
+        "Path": "/authenticate_user",
+        "X-Chef-Version": "16.0.0",
+        "X-Ops-Server-API-Version": "1",
+        "X-Ops-Sign": "version=1.3",
+        "X-Ops-UserId": "myuser",
+        "Content-Type": "application/json"
+    },
+    "sample_headers": {
+        "Accept": "application/json",
+        "Host": "chef-server.example.org:4000",
+        "Method": "GET",
+        "Path": "/license",
+        "X-Chef-Version": "16.0.0",
+        "X-Ops-Server-API-Version": "1",
+        "X-Ops-Sign": "version=1.3",
+        "X-Ops-UserId": "myuser",
+        "X-Ops-Content-Hash": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+        "X-Ops-Timestamp": "2023-02-12T20:32:00Z"
+    },
+    "canonical_headers": "Method:GET\nPath:/license\nX-Ops-Content-Hash:47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\nX-Ops-Sign:version=1.3\nX-Ops-Timestamp:2023-02-12T20:32:00Z\nX-Ops-UserId:myuser\nX-Ops-Server-API-Version:1",
+    "signature": "HI1ab72DMR8aZVo/UHunZQxFsNKqe8jjiiqjYWT+CGiw7sDp2xTctafCl/vmcPrJoLYIS7rcFBVkvizaOfQwrFO6X9CIE8w1DUM9eLeTlPrgIZ7+zqUnfORPL41pn+vpu6fnixPAKFPB5ErPoj7xYUh70KlYO9tk38nJcL0ERC2ca7Q83UjZJbcPGuStuC6zixzsp9B0/S2wYi8fhnymH6P9//CinpurWdTAZxwTVdSkkP4tgbUZYXeYfWovbRitO10bZCTq4RfBXQCO12zd2Mq0QUIy0KJUpAyZ/NSaDgdtjjhRb5WvJRm5eyeMmnP4fW8pcrYAjb2SPnZPMRm6Ww==",
+    "auth_headers": {
+        "X-Ops-Authorization-1": "HI1ab72DMR8aZVo/UHunZQxFsNKqe8jjiiqjYWT+CGiw7sDp2xTctafCl/vm",
+        "X-Ops-Authorization-2": "cPrJoLYIS7rcFBVkvizaOfQwrFO6X9CIE8w1DUM9eLeTlPrgIZ7+zqUnfORP",
+        "X-Ops-Authorization-3": "L41pn+vpu6fnixPAKFPB5ErPoj7xYUh70KlYO9tk38nJcL0ERC2ca7Q83UjZ",
+        "X-Ops-Authorization-4": "JbcPGuStuC6zixzsp9B0/S2wYi8fhnymH6P9//CinpurWdTAZxwTVdSkkP4t",
+        "X-Ops-Authorization-5": "gbUZYXeYfWovbRitO10bZCTq4RfBXQCO12zd2Mq0QUIy0KJUpAyZ/NSaDgdt",
+        "X-Ops-Authorization-6": "jjhRb5WvJRm5eyeMmnP4fW8pcrYAjb2SPnZPMRm6Ww=="
+    }
+}

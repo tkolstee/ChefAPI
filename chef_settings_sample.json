@@ -1,0 +1,6 @@
+{
+    "url": "https://chef-server.example.org",
+    "verify_ssl": false,
+    "username": "chefadmin",
+    "keyfile": "./chef-key.pem"
+}
