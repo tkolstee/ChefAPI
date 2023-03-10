@@ -105,6 +105,15 @@ def test_canonical_headers(chefapi, settings):
     assert canon == settings['canonical_headers']
 
 
+def test_path_does_not_contain_url_parameters(chefapi, settings):
+    endpoint = '/organizations/myorg/search/node'
+    query = 'chef_environment:BLAH'
+    url = f"{endpoint}?{query}"
+    headers = chefapi.headers(url, 'GET')
+    assert 'chef_environment' not in headers['Path']
+    assert 'BLAH' not in headers['Path']
+
+
 def test_gen_sig(chefapi, settings):
     canon = settings['canonical_headers']
     sig = chefapi.gen_signature(canon)

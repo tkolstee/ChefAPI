@@ -1,20 +1,22 @@
-"""
-See Also:
-https://github.com/chef-boneyard/chef-rfc/blob/master/rfc065-sign-v1.3.md
-https://docs.chef.io/server/api_chef_server/
-"""
 
 import os
 import base64
 import re
 from urllib.parse import urlparse
 import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import requests
 from datetime import datetime, timezone
 from Crypto.PublicKey import RSA
 from Crypto.Signature import pkcs1_15
-from Crypto.Hash import SHA1, SHA256
+from Crypto.Hash import SHA256
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+"""
+See Also:
+https://github.com/chef-boneyard/chef-rfc/blob/master/rfc065-sign-v1.3.md
+https://docs.chef.io/server/api_chef_server/
+"""
 
 
 class ChefAPI:
@@ -28,7 +30,7 @@ class ChefAPI:
         self.url = url
         self.host = urlparse(url).netloc
         self.verify = verify
-    
+
     def content_hash(self, body):
         if type(body) == bytes:
             hash = body
@@ -45,7 +47,10 @@ class ChefAPI:
         now = re.sub(r'\+00:00', 'Z', now)
         return now
 
-    def headers(self, path, method, body=None):
+    def headers(self, request, method, body=None):
+        url = f"{self.url}{request}"
+        parsed_url = urlparse(url)
+        path = parsed_url.path
         headers = {
             'Accept': 'application/json',
             'Host': self.host,
@@ -60,7 +65,7 @@ class ChefAPI:
         }
         if (body):
             headers['Content-Type'] = 'application/json'
-        
+
         headers.update(self.signing_headers(headers))
         return headers
 
@@ -68,9 +73,9 @@ class ChefAPI:
         return "\n".join(
             f"{x}:{headers[x]}"
             for x in [
-                'Method', 
+                'Method',
                 'Path',
-                'X-Ops-Content-Hash', 'X-Ops-Sign', 
+                'X-Ops-Content-Hash', 'X-Ops-Sign',
                 'X-Ops-Timestamp', 'X-Ops-UserId', 'X-Ops-Server-API-Version'
             ]
         )
@@ -96,9 +101,6 @@ class ChefAPI:
         return newheaders
 
     def get(self, request):
-        url = f"{self.url}{request}"
-        parsed_url = urlparse(url)
-        headers = self.headers(parsed_url.path, 'GET')
-        r = requests.get(url, headers=headers, verify=self.verify)
+        headers = self.headers(request, 'GET')
+        r = requests.get(request, headers=headers, verify=self.verify)
         return r
-        
