@@ -95,9 +95,10 @@ class ChefAPI:
             newheaders[f"X-Ops-Authorization-{i+1}"] = fragment
         return newheaders
 
-    def get(self, path):
-        url = f"{self.url}{path}"
-        headers = self.headers(path, 'GET')
+    def get(self, request):
+        url = f"{self.url}{request}"
+        parsed_url = urlparse(url)
+        headers = self.headers(parsed_url.path, 'GET')
         r = requests.get(url, headers=headers, verify=self.verify)
         return r
         
