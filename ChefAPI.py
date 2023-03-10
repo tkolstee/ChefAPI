@@ -101,6 +101,7 @@ class ChefAPI:
         return newheaders
 
     def get(self, request):
+        url = f"{self.url}{request}"
         headers = self.headers(request, 'GET')
-        r = requests.get(request, headers=headers, verify=self.verify)
+        r = requests.get(url, headers=headers, verify=self.verify)
         return r
